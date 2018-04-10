@@ -10,7 +10,7 @@ cmd = sys.argv[1]
 cli = docker.from_env()
 for each in cli.volumes.list():
     print("image: " + each.name)
-    ret = cli.containers.run('alpine', cmd, remove=True)
+    ret = cli.containers.run('alpine', cmd, remove=True, volumes={each.name:{'bind':'/data'}})
     lines = ret.decode('utf-8').split('\n')
     for line in lines:
         print(line)
